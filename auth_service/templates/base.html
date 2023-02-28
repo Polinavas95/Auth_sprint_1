@@ -1,0 +1,51 @@
+{% block doc -%}
+  <!DOCTYPE html>
+  <html{% block html_attribs %}{% endblock html_attribs %}>
+    {%- block html %}
+      <head>
+        {%- block head %}
+          <title>
+            {% block title %}
+            {% endblock title %}
+          </title>
+          {%- block metas %}
+            <meta name="viewport" content="width=device-width, initial-scale=1"/>
+          {%- endblock metas %}
+          {%- block head_scripts %}
+          {%- endblock head_scripts %}
+          {%- block styles %}
+            <link rel="stylesheet"
+                  href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css"/>
+          {%- endblock styles %}
+        {%- endblock head %}
+      </head>
+      <body{% block body_attribs %}{% endblock body_attribs %}>
+        <section class="hero is-primary is-fullheight">
+          <div class="hero-head">
+            <nav class="navbar">
+              <div class="container">
+                {% block navbar %}
+                {%- endblock navbar %}
+                <div id="navbarMenuHeroA" class="navbar-menu">
+                  <div class="navbar-end buttons">
+                    {% for navbar_item in navbar_items %}{{ navbar_item }}{% endfor %}
+                  </div>
+                </div>
+              </div>
+            </nav>
+          </div>
+          <div class="hero-body">
+            <div class="container has-text-centered">
+              {% block body -%}
+                {% block content -%}
+                {%- endblock content %}
+                {% block scripts %}
+                {%- endblock scripts %}
+              {% endblock body %}
+            </div>
+          </div>
+        </section>
+      </body>
+    {%- endblock html %}
+  </html>
+{% endblock doc -%}

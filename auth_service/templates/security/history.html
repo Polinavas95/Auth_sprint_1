@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1 class="title">Your history</h1>
+    <table class="table is-fullwidth is-bordered is-hoverable">
+        <tr>
+            <th>Login date</th>
+            <th>User agent</th>
+        </tr>
+        {% for event in object_list %}
+            <tr>
+                <th>{{ event.registered }}</th>
+                <td>{{ event.history }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% if page > 1 %}
+  <a href="./?page={{ page - 1 }}">Prev</a>
+{% endif %}
+{% if page < pagination.get_pages() %}
+  <a href="./?page={{ page + 1 }}">Next</a>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,1208 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "User Management API",
+    "description": "A REST API for authentification and authorization in a film database.",
+    "version": "1.0.0"
+  },
+  "basePath": "/api",
+  "tags": [
+    {
+      "name": "films",
+      "description": "API for Films Endpoints"
+    },
+    {
+      "name": "auth",
+      "description": "API for Auth Endpoints"
+    }
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "API Endpoint for create User",
+        "description": "Create new User in database",
+        "parameters": [
+          {
+            "name": "name",
+            "description": "User name",
+            "type": "string",
+            "in": "header"
+          },
+          {
+            "name": "email",
+            "description": "User email",
+            "type": "string",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "password_hash",
+            "description": "User password",
+            "type": "string",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "302": {
+            "description": "New user has Created",
+            "schema": {
+              "$ref": "#definitions/UserRegister"
+            }
+          },
+          "401": {
+            "description": "Forget to add username/password"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "API Endpoint for create User",
+        "description": "Create new User in database",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Visit user register page",
+            "schema": {
+              "$ref": "#definitions/UserRegister"
+            }
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "API Endpoint to login user account",
+        "description": "Login user",
+        "parameters": [
+          {
+            "name": "email",
+            "description": "User email",
+            "type": "string",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "password",
+            "description": "User password",
+            "type": "string",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "User has logged in",
+            "schema": {
+              "$ref": "#definitions/UserLogin"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "API Endpoint to login user account",
+        "description": "Login user",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Visit user login page",
+            "schema": {
+              "$ref": "#definitions/UserLogin"
+            }
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "API Endpoint to logout user account",
+        "description": "Logout user",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful user logout",
+            "schema": {
+              "$ref": "#definitions/UserLogout"
+            }
+          }
+        }
+      }
+    },
+    "/auth/logout_all": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "API Endpoint to logout user from all accounts",
+        "description": "Logout user",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful user logout",
+            "schema": {
+              "$ref": "#definitions/UserLogout"
+            }
+          }
+        }
+      }
+    },
+    "/auth/change_login": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "API Endpoint to change user login",
+        "description": "Change login user",
+        "parameters": [
+          {
+            "name": "name",
+            "description": "User name",
+            "type": "string",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "new_name",
+            "description": "User new name",
+            "in": "header",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful change login",
+            "schema": {
+              "$ref": "#definitions/UserChangeLogin"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "API Endpoint to change user login",
+        "description": "Change login user",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Visit user change login page",
+            "schema": {
+              "$ref": "#definitions/UserChangeLogin"
+            }
+          }
+        }
+      }
+    },
+    "/auth/change_password": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "API Endpoint to change user password",
+        "description": "Change password user",
+        "parameters": [
+          {
+            "name": "password",
+            "description": "User password",
+            "type": "string",
+            "in": "header",
+            "required": true
+          },
+          {
+            "name": "new_password",
+            "description": "User new password",
+            "type": "string",
+            "in": "header",
+            "required": true
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful change password",
+            "schema": {
+              "$ref": "#definitions/UserChangePassword"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "API Endpoint to change user password",
+        "description": "Change password user",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Visit user change login page",
+            "schema": {
+              "$ref": "#definitions/UserChangePassword"
+            }
+          }
+        }
+      }
+    },
+    "/auth/history": {
+      "post": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "API Endpoint of user history",
+        "description": "User history",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful get user history",
+            "schema": {
+              "$ref": "#definitions/UserHistory"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "API Endpoint of user history",
+        "description": "Get user history",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "All user history",
+            "schema": {
+              "$ref": "#definitions/UserHistory"
+            }
+          }
+        }
+      }
+    },
+    "/auth/profile": {
+      "get": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "API Endpoint of user profile",
+        "description": "Get user profile",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "User profile",
+            "schema": {
+              "$ref": "#definitions/UserProfile"
+            }
+          }
+        }
+      }
+    },
+    "/auth/refresh": {
+      "get": {
+        "tags": [
+          "auth"
+        ],
+        "summary": "API Endpoint of user refresh tokens",
+        "description": "Get user refresh tokens",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "User refresh tokens",
+            "schema": {
+              "$ref": "#definitions/UserRefresh"
+            }
+          }
+        }
+      }
+    },
+    "/films/search": {
+      "get": {
+        "tags": [
+          "films"
+        ],
+        "summary": "Search Movies",
+        "description": "Get list of movies with search and filters",
+        "operationId": "film_list_api_v1_films_search_get",
+        "parameters": [
+          {
+            "name": "filter[genre]",
+            "type": "string",
+            "description": "Filter by genre uuid",
+            "in": "query"
+          },
+          {
+            "name": "filter[writer]",
+            "type": "string",
+            "description": "Filter by writer (person) uuid",
+            "in": "query"
+          },
+          {
+            "name": "filter[actor]",
+            "description": "Filter by actor (person) uuid",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "filter[director]",
+            "description": "Filter by director (person) uuid",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "query",
+            "description": "Text for search by title",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "sort",
+            "description": "Sort by current param",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "page[size]",
+            "description": "Items per page",
+            "in": "query",
+            "type": "integer"
+          },
+          {
+            "name": "page[number]",
+            "description": "Number of page",
+            "in": "query",
+            "type": "integer"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "All the Films",
+            "type": "array",
+            "schema": {
+              "$ref": "#definitions/Film"
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "schema": {
+              "$ref": "#definitions/HTTPValidationError"
+            }
+          }
+        }
+      }
+    },
+    "/films": {
+      "get": {
+        "tags": [
+          "films"
+        ],
+        "summary": "Get Movies",
+        "description": "Get list of movies with search and filters",
+        "operationId": "film_list_api_v1_films__get",
+        "parameters": [
+          {
+            "name": "filter[genre]",
+            "description": "Filter by genre uuid",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "filter[writer]",
+            "description": "Filter by writer (person) uuid",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "filter[actor]",
+            "description": "Filter by actor (person) uuid",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "filter[director]",
+            "description": "Filter by director (person) uuid",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "query",
+            "description": "Text for search by title",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "sort",
+            "description": "Sort by current param",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "page[size]",
+            "description": "Items per page",
+            "in": "query",
+            "minimum": 0,
+            "type": "integer"
+          },
+          {
+            "name": "page[number]",
+            "description": "Number of page",
+            "in": "query",
+            "minimum": 0,
+            "type": "integer"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "title": "Response Film List Api V1 Films  Get",
+            "type": "array",
+            "schema": {
+              "$ref": "#definitions/Film"
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "schema": {
+              "$ref": "#definitions/HTTPValidationError"
+            }
+          }
+        }
+      }
+    },
+    "/films/{film_id}": {
+      "get": {
+        "tags": [
+          "films"
+        ],
+        "summary": "Search Movies",
+        "description": "Get list of movies with search and filter",
+        "operationId": "film_list_api_v1_films_search_get",
+        "parameters": [
+          {
+            "name": "filter[genre]",
+            "description": "Filter by genre uuid",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "filter[writer]",
+            "description": "Filter by writer (person) uuid",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "filter[actor]",
+            "description": "Filter by actor (person) uuid",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "filter[director]",
+            "description": "Filter by director (person) uuid",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "query",
+            "description": "Text for search by title",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "sort",
+            "description": "Sort by current param",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "page[size]",
+            "description": "Items per page",
+            "in": "query",
+            "minimum": 0,
+            "type": "integer"
+          },
+          {
+            "name": "page[number]",
+            "description": "Number of page",
+            "in": "query",
+            "minimum": 0,
+            "type": "integer"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "title": "Response Film List Api V1 Films  Get",
+            "type": "array",
+            "schema": {
+              "$ref": "#definitions/Film"
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "schema": {
+              "$ref": "#definitions/HTTPValidationError"
+            }
+          }
+        }
+      }
+    },
+    "/genres": {
+      "get": {
+        "tags": [
+          "genres"
+        ],
+        "summary": "Get Genres",
+        "description": "Get list of Genres with search and filters",
+        "operationId": "genre_list_api_v1_genres__get",
+        "parameters": [
+          {
+            "name": "query",
+            "description": "Text for search by genres",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "sort",
+            "description": "Sort by current param",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "page[size]",
+            "description": "Items per page",
+            "in": "query",
+            "minimum": 0,
+            "type": "integer"
+          },
+          {
+            "name": "page[number]",
+            "description": "Number of page",
+            "in": "query",
+            "minimum": 0,
+            "type": "integer"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "title": "Response Genre List Api V1 Genres  Get",
+            "type": "array",
+            "schema": {
+              "$ref": "#definitions/Genre"
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "schema": {
+              "$ref": "#definitions/HTTPValidationError"
+            }
+          }
+        }
+      }
+    },
+    "/genres/{genre_id}": {
+      "get": {
+        "tags": [
+          "genres"
+        ],
+        "summary": "Get Genres",
+        "description": "Get list of Genres with search and filters",
+        "operationId": "genre_details_api_v1_genres__genre_id__get",
+        "parameters": [
+          {
+            "name": "genre_id",
+            "description": "Genre Id",
+            "in": "path",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "schema": {
+              "$ref": "#definitions/GenreFull"
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "schema": {
+              "$ref": "#definitions/HTTPValidationError"
+            }
+          }
+        }
+      }
+    },
+    "/persons": {
+      "get": {
+        "tags": [
+          "persons"
+        ],
+        "summary": "Get Persons",
+        "description": "Get list of Persons with search and filters",
+        "operationId": "person_list_api_v1_persons__get",
+        "parameters": [
+          {
+            "name": "filter[film_ids]",
+            "type": "string",
+            "description": "Filter by film uuid",
+            "in": "query"
+          },
+          {
+            "name": "query",
+            "description": "Text for search by persons",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "sort",
+            "description": "Sort by current param",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "page[size]",
+            "description": "Items per page",
+            "in": "query",
+            "type": "integer"
+          },
+          {
+            "name": "page[number]",
+            "description": "Number of page",
+            "in": "query",
+            "type": "integer"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Response Person List Api V1 Persons  Get",
+            "type": "array",
+            "schema": {
+              "$ref": "#definitions/PersonFull"
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "schema": {
+              "$ref": "#definitions/HTTPValidationError"
+            }
+          }
+        }
+      }
+    },
+    "/persons/search": {
+      "get": {
+        "tags": [
+          "persons"
+        ],
+        "summary": "Search Persons",
+        "description": "Get list of Persons with search and filters",
+        "operationId": "person_list_api_v1_persons_search_get",
+        "parameters": [
+          {
+            "name": "filter[film_ids]",
+            "type": "string",
+            "description": "Filter by film uuid",
+            "in": "query"
+          },
+          {
+            "name": "query",
+            "description": "Text for search by persons",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "sort",
+            "description": "Sort by current param",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "page[size]",
+            "description": "Items per page",
+            "in": "query",
+            "type": "integer"
+          },
+          {
+            "name": "page[number]",
+            "description": "Number of page",
+            "in": "query",
+            "type": "integer"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Response Person List Api V1 Persons Search Get",
+            "type": "array",
+            "schema": {
+              "$ref": "#definitions/PersonFull"
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "schema": {
+              "$ref": "#definitions/HTTPValidationError"
+            }
+          }
+        }
+      }
+    },
+    "/persons/{person_id}": {
+      "get": {
+        "tags": [
+          "persons"
+        ],
+        "summary": "Get Person",
+        "description": "Get Person by id with all the information",
+        "operationId": "person_details_api_v1_persons__person_id__get",
+        "parameters": [
+          {
+            "name": "person_id",
+            "type": "string",
+            "description": "Person Id",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#definitions/PersonFull"
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "schema": {
+              "$ref": "#definitions/HTTPValidationError"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "UserRegister": {
+      "required": [
+        "name",
+        "email",
+        "password_hash"
+      ],
+      "properties": {
+        "_id": {
+          "type": "integer",
+          "default": 1
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "fs_uniquifier": {
+          "type": "string"
+        },
+        "active": {
+          "type": "boolean",
+          "default": true
+        },
+        "role": {
+          "default": [
+            "user"
+          ]
+        }
+      }
+    },
+    "User": {
+      "required": [
+        "email",
+        "password"
+      ],
+      "properties": {
+        "_id": {
+          "type": "integer",
+          "default": 1
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "UserLogin": {
+      "required": [
+        "email",
+        "password"
+      ],
+      "properties": {
+        "_id": {
+          "type": "integer",
+          "default": 1
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "UserLogout": {
+      "properties": {
+        "_id": {
+          "type": "integer",
+          "default": 1
+        }
+      }
+    },
+    "UserChangeLogin": {
+      "required": [
+        "name",
+        "new_name"
+      ],
+      "properties": {
+        "_id": {
+          "type": "integer",
+          "default": 1
+        },
+        "new_name": {
+          "default": "Ivan"
+        }
+      }
+    },
+    "UserChangePassword": {
+      "required": [
+        "password",
+        "new_password"
+      ],
+      "properties": {
+        "_id": {
+          "type": "integer",
+          "default": 1
+        },
+        "new_password": {
+          "type": "string"
+        }
+      }
+    },
+    "UserHistory": {
+      "properties": {
+        "_id": {
+          "type": "integer",
+          "default": 1
+        },
+        "history": {
+          "default": [
+            {
+              "event": "browser",
+              "registered": "date"
+            }
+          ]
+        }
+      }
+    },
+    "UserProfile": {
+      "properties": {
+        "_id": {
+          "type": "integer",
+          "default": 1
+        }
+      }
+    },
+    "UserRefresh": {
+      "properties": {
+        "_id": {
+          "type": "integer",
+          "default": 1
+        },
+        "access_token": {
+          "type": "string",
+          "default": "new access token"
+        },
+        "refresh_token": {
+          "type": "string",
+          "default": "new refresh token"
+        }
+      }
+    },
+    "Film": {
+      "title": "Film",
+      "type": "object",
+      "required": [
+        "id",
+        "title"
+      ],
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string",
+          "format": "uuid"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string"
+        }
+      }
+    },
+    "FilmFull": {
+      "title": "FilmFull",
+      "type": "object",
+      "required": [
+        "id",
+        "title"
+      ],
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string",
+          "format": "uuid"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "imdb_rating": {
+          "title": "Imdb Rating",
+          "type": "number"
+        },
+        "genres": {
+          "title": "Genres",
+          "type": "array",
+          "items": "$ref: #/definitions/Genre"
+        },
+        "actors": {
+          "title": "Actors",
+          "type": "array",
+          "items": "$ref: #/definitions/Person"
+        },
+        "writers": {
+          "title": "Writers",
+          "type": "array",
+          "items": "$ref: #/definitions/Person"
+        },
+        "director": {
+          "title": "Director",
+          "type": "array",
+          "items": "$ref: #/definitions/Person"
+        }
+      }
+    },
+    "Genre": {
+      "title": "Genre",
+      "type": "object",
+      "required": [
+        "id",
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string",
+          "format": "uuid"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        }
+      }
+    },
+    "GenreFull": {
+      "title": "GenreFull",
+      "type": "object",
+      "required": [
+        "id",
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string",
+          "format": "uuid"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string"
+        }
+      }
+    },
+    "Person": {
+      "title": "Person",
+      "type": "object",
+      "required": [
+        "id",
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string",
+          "format": "uuid"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        }
+      }
+    },
+    "PersonFull": {
+      "title": "PersonFull",
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "film_ids"
+      ],
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string",
+          "format": "uuid"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "film_ids": {
+          "title": "Film Ids",
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      }
+    },
+    "HTTPValidationError": {
+      "title": "HTTPValidationError",
+      "type": "object",
+      "properties": {
+        "detail": {
+          "title": "Detail",
+          "type": "array",
+          "items": "$ref: #/definitions/ValidationError"
+        }
+      }
+    },
+    "ValidationError": {
+      "title": "ValidationError",
+      "required": [
+        "loc",
+        "msg",
+        "type"
+      ],
+      "type": "object",
+      "properties": {
+        "loc": {
+          "title": "Location",
+          "type": "array",
+          "items": {
+            "anyOf": [
+              "string",
+              "integer"
+            ]
+          }
+        },
+        "msg": {
+          "title": "Message",
+          "type": "string"
+        },
+        "type": {
+          "title": "Error Type",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

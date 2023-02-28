@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <title>Film database index page</title>
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css"/>
+    </head>
+    <body>
+        <section class="hero is-primary is-fullheight"
+                 style="background-color: #74bbc1">
+            <div class="hero-body">
+                <div class="container has-text-centered">
+                    <h1 class="title">
+                        Film database index page
+                        {{ welcome_string }}
+                    </h1>
+                    {% if user and user_email %}<h2 class="subtitle">Your email: {{ user_email }}</h2>{% endif %}
+                    <br>
+                    {% if user %}
+                        {% if user.is_authenticated %}
+                            <h2 class="subtitle">
+                                <a style="font-size: 30px;
+                                          color: gray"
+                                   href="{{ url_for('views.logout') }}">{{ _fsdomain('Sign out') }}</a>
+                            </h2>
+                        {% else %}
+                            <h2 class="subtitle">
+                                Please, <a style="font-size: 30px;
+           color: gray"
+    href="{{ url_for('views.login') }}{% if 'next' in request.args %}?next={{ request.args.next|urlencode }}{% endif %}">{{ _fsdomain('Login') }}</a>
+                                <br>
+                                or <a style="font-size: 30px;
+           color: darkred"
+    href="{{ url_for('views.register') }}{% if 'next' in request.args %}?next={{ request.args.next|urlencode }}{% endif %}">{{ _fsdomain('Register') }}</a>
+                            </h2>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

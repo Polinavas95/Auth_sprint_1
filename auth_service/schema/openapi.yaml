@@ -1,0 +1,333 @@
+openapi: 3.0.0
+info:
+  title: User Management API
+  description: A REST API for authentification and authorization in a film database.
+  version: 1.0.0
+servers:
+  - url: "http://localhost:3000/api/v1/auth/"
+paths:
+  "/auth/register":
+    post:
+      description: Register a new user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  description: The name of the user
+                  type: string
+                email:
+                  description: The email of the user
+                  type: string
+                  format: email
+                password_hash:
+                  description: The password of the user
+                  type: string
+                  format: password
+                fs_uniquifier:
+                  description: The identifier of the user
+                  type: string
+                active:
+                  description: The user activity
+                  type: boolean
+        required: true
+      responses:
+        "302":
+          description: Successful registration
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Successfully registered user
+                  id:
+                    type: integer
+                    example: 123
+        "401":
+          description: Forget to add username/password
+    get:
+      description: Visit a user register page
+      responses:
+        "200":
+          description: Successful visiting
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Successfully visit a register page
+        "401":
+          description: Empty request
+  "/auth/login":
+    post:
+      description: Login an existing user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  description: The email of the user
+                  type: string
+                  format: email
+                password_hash:
+                  description: The password of the user
+                  type: string
+                  format: password
+        required: true
+      responses:
+        "200":
+          description: Successful login
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Successfully logged in.
+                  id:
+                    type: integer
+                    example: 123
+                  tokens:
+                    type: object
+                    properties:
+                      access_token:
+                        type: string
+                        example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIzLCJpYXQiOjE1MTYyMzkwMjJ9.fjQ2M0jJHfjkd0a82jdkKjdkKjdkKjdkKjdkK
+                      refresh_token:
+                        type: string
+                        example: fjQ2M0jJHfjkd0a82jdkKjdkKjdkKjdkKjdkK
+        "401":
+          description: Empty request
+    get:
+      description: Visit a user login page
+      responses:
+        "200":
+          description: Successful visiting
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Successfully visit a login page
+        "401":
+          description: Empty request
+  "/auth/logout":
+    post:
+      description: Logout an existing user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                  message:
+                    type: string
+                    example: Successfully logged out
+                  id:
+                    type: integer
+                    example: 123
+      responses:
+        "200":
+          description: Successful logout
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Successfully logged out
+        "400":
+          description: Bad request
+  "/auth/logout_all":
+    post:
+      description: Logout from all devices
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                  message:
+                    type: string
+                    example: Successfully logged out
+                  id:
+                    type: integer
+                    example: 123
+      responses:
+        "200":
+          description: Successful logout
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Successfully logged out
+  "/auth/change_login":
+    post:
+      description: New login for existing user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  description: The old name of the user
+                  type: string
+                new_name:
+                  description: The new name of the user
+                  type: string
+        required: true
+      responses:
+        "200":
+          description: Successful login change
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Successfully change login
+                  new_name:
+                    type: string
+                    example: Ivan
+        "401":
+          description: Empty request
+    get:
+      description: Visit a user change login page
+      responses:
+        "200":
+          description: Successful visiting
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Successfully visit a login page
+        "401":
+          description: Empty request
+  "/auth/change_password":
+    post:
+      description: New password for existing user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  description: The old password of the user
+                  type: string
+                new_password:
+                  description: The new password of the user
+                  type: string
+        required: true
+      responses:
+        "200":
+          description: Successful password change
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Successfully change password
+                  new_password:
+                    type: string
+                    example: Ivan
+        "401":
+          description: Empty request
+    get:
+      description: Visit a user change password page
+      responses:
+        "200":
+          description: Successful visiting
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Successfully visit a login password
+        "401":
+          description: Empty request
+  "/auth/history":
+    get:
+      description: Visit a page with the sign-in history
+      responses:
+        "200":
+          description: Successful visiting
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Successfully visit sign-in history.
+                  signin_history:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        registered:
+                          type: string
+                          format: date-time
+                          example: "2022-05-01T12:30:00"
+                        device:
+                          type: string
+                          example: "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/109.0"
+        "400":
+          description: Bad request
+  "/auth/profile":
+    get:
+      description: Visit a profile page
+      responses:
+        "200":
+          description: Successful visiting
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Successfully visit a profile page
+        "400":
+          description: Bad request
+  "/auth/refresh":
+    get:
+      description: Visit a page to refresh user token
+      responses:
+        "200":
+          description: Successful visiting
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Successfully visit a refresh page
+        "400":
+          description: Bad request
+ 

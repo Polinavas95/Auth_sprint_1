@@ -1,0 +1,12 @@
+
+services:
+
+  tests:
+    build: ./tests/
+    depends_on:
+      - async_api
+      - postgres
+      - redis
+    env_file:
+      - ./tests/.env
+      - ./tests/.docker.env

@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+  <h2 class="subtitle is-3 is-primary">Auth Index Page</h2>
+  <div class="container has-text-centered">
+    <h1 class="title is-1">{{ contex.welcome_string }}</h1>
+    {% if contex.user and contex.user_email %}<h2 class="subtitle">Your email: {{ contex.user_email }}</h2>{% endif %}
+  </div>
+{% endblock %}
